@@ -9,10 +9,9 @@ const todos = ref(["Todo 1", "Todo 2", "Todo 3"]);
     <h1 class="toDoHeader">TODO</h1>
   </header>
   <main>
-    <p>THIS TODO</p>
     <ul class="list" v-for="todo in todos">
-    <TodoBox class="box">
-      {{todo}}
+    <TodoBox class="box" todo="todo">
+
     </TodoBox>
     </ul>
   </main>
@@ -32,7 +31,8 @@ const todos = ref(["Todo 1", "Todo 2", "Todo 3"]);
 }
 .box{
   width: 300px;
-  height: 300px;
+  min-height: 200px;
+  height: auto;
   border: 1px solid black;
 }
 </style>
