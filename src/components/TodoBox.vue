@@ -23,6 +23,7 @@ const items = ["1", "2","3", "2","3", "5"]
   <div class="addButton">
     <Button id="addButton">Add new</Button>
   </div>
+
 </main>
 
 </template>

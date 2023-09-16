@@ -35,7 +35,7 @@ const testItem = {id: 1, title: 'Buy groceries', description: 'test', priority: 
 }
 .checkBoxDiv{
  display: grid;
-  justify-items: end;
+ justify-items: end;
 }
 #checkbox{
   height: auto;

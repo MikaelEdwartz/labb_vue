@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import TodoBox from "./components/TodoBox.vue";
 import { ref } from "vue";
+import TodoItemModal from "@/components/TodoItemModal.vue";
+import {hasOwnProperty} from "node";
 const todos = ref(["Todo 1", "Todo 2", "Todo 3"]);
+const showModal: boolean = true;
 </script>
 
 <template>
@@ -9,10 +12,11 @@ const todos = ref(["Todo 1", "Todo 2", "Todo 3"]);
     <h1 class="toDoHeader">TODO</h1>
   </header>
   <main>
+      <TodoItemModal v-if="showModal" @close="showModal = false"></TodoItemModal>
     <ul class="list" v-for="todo in todos">
-    <TodoBox class="box" todo="todo">
+      <TodoBox class="box" todo="todo"/>
 
-    </TodoBox>
+
     </ul>
   </main>
 </template>
