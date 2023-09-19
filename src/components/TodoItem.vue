@@ -19,7 +19,8 @@ const testItem = { id: 1, title: 'Buy groceries', description: 'test', priority:
 
 <template>
   <div class="item">
-    <p>• {{ listItem.title }}</p>
+    <p id="checkedText" v-if="listItem.completed">• {{ listItem.title }}</p>
+    <p id="nonCheckedText" v-else>• {{ listItem.title }}</p>
 
     <div class="checkBoxDiv" @click="$emit('checkBoxToggled', )">
       <input v-if="listItem.completed" type="checkbox" id="checkbox" checked @click="listItem.completed = !listItem.completed" />
@@ -42,5 +43,14 @@ const testItem = { id: 1, title: 'Buy groceries', description: 'test', priority:
   height: auto;
   width: 30px;
   border-radius: 1.5%;
+}
+#nonCheckedText{
+font-size: 18px;
+}
+#checkedText{
+  font-size: 18px;
+
+  color: rgb(128, 128, 128);
+  text-decoration: line-through;
 }
 </style>
