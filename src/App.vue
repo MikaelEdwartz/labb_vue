@@ -5,7 +5,7 @@ import TodoItemModal from '@/components/TodoItemModal.vue'
 import { hasOwnProperty } from 'node'
 const todos = ref(['Todo 1', 'Todo 2', 'Todo 3'])
 
-const todoHeader: string = "";
+const todoHeader: string = ''
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const todoHeader: string = "";
   </header>
   <main>
     <ul class="list" v-for="todo in todos">
-      <TodoBox class="box" todo="todo" />
+      <TodoBox class="box" todo="todo" :header-name="todo"/>
     </ul>
   </main>
 </template>
