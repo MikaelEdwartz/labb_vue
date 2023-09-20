@@ -31,6 +31,9 @@ const testItem = { id: 1, title: 'Buy groceries', description: 'test', priority:
 </template>
 
 <style scoped>
+p{
+  color: black;
+}
 .item {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -45,7 +48,7 @@ const testItem = { id: 1, title: 'Buy groceries', description: 'test', priority:
   border-radius: 1.5%;
 }
 #nonCheckedText{
-font-size: 18px;
+  font-size: 18px;
 }
 #checkedText{
   font-size: 18px;

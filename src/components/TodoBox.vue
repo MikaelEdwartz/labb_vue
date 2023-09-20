@@ -24,6 +24,7 @@ let todoHeader: string = ref(props.headerName);
 let showModal = ref(false)
 const items = ['1', '2', '3', '2', '3', '5']
 let isChecked = ref(false);
+let allChecked = ref(false);
 const testItems = [{
   id: 1,
   title: 'Buy groceries',
@@ -50,7 +51,7 @@ const testItems = [{
 const todoList = ref(testItems)
 
 const handleSubmit = (newItem: Item) => {
-  console.log(newItem)
+
   todoList.value.push({
     id: newItem.id,
     title: newItem.title,
@@ -69,9 +70,10 @@ const removeCompleted = () =>{
 
 const checkIfChecked = () =>{
   const completedList = todoList.value.filter((value) => value.completed)
-
+  completedList.length === todoList.value.length ? allChecked.value = true : allChecked.value = false;
   completedList.length > 0 ? isChecked.value = true : isChecked.value = false;
 }
+
 </script>
 
 <template>
@@ -80,14 +82,16 @@ const checkIfChecked = () =>{
     <h1 class="header"><textarea id="headerInput" v-model="todoHeader" /></h1>
 
     <div v-for="item in todoList"><TodoItem :list-item="item" @check-Box-Toggled="checkIfChecked"></TodoItem></div>
-    <footer class="boxFooter">
-      <button id="clearButton" v-show="isChecked" @click="removeCompleted">REMOVE</button>
+    <footer class="boxFooter">'
+      <button id="removeBox" v-show="allChecked" @click="$emit('completedList', todoList, todoHeader)">Finish {{todoHeader}}</button>
+      <button id="clearButton" v-show="isChecked && !allChecked" @click="removeCompleted">Clear completed</button>
       <button id="addButton" @click="showModal = true">Add new</button>
     </footer>
   </main>
 </template>
 
 <style scoped>
+
 .header {
   display: grid;
   justify-items: center;
@@ -97,6 +101,8 @@ const checkIfChecked = () =>{
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   height: auto;
+  background-color: #C6C5BB;
+  border-radius: 10px;
 }
 .boxFooter {
   display: grid;
@@ -108,9 +114,12 @@ const checkIfChecked = () =>{
   height: auto;
   align-self: end;
   grid-column: 2;
+  border-radius: 6px;
 }
-#clearButton{
+#clearButton, #removeBox{
   place-self: start;
+  grid-column: 1;
+  border-radius: 6px;
 }
 #headerInput {
   border: 0;
@@ -118,5 +127,7 @@ const checkIfChecked = () =>{
   height: 25px;
   text-align: center;
   overflow-x: scroll;
+  background-color: #C6C5BB;
+
 }
 </style>
