@@ -132,6 +132,7 @@ const checkIfChecked = () => {
   text-align: center;
   overflow-x: scroll;
   background-color: #C6C5BB;
+  resize: none;
 }
   #addButton:hover, #clearButton:hover, #removeBox:hover {
     background-color: #C6C5BB;
