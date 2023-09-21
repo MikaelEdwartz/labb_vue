@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import TodoBox, { Item } from '/src/components/TodoBox.vue'
+import TodoBox from '/src/components/TodoBox.vue'
 import { ref } from 'vue'
 import CompletedList from '@/components/CompletedList.vue'
+import type { Item } from '@/types'
 
 defineProps({
   completedList: {
@@ -18,8 +19,9 @@ const createNewTodo = (event: SubmitEvent) => {
   if (input) todos.value.push(input.value)
   inputValue.value = ''
 }
-const addToCompletedList = (emitEvent: SubmitEvent, header: string) => {
-  finishedTodosMap.set(header, JSON.parse(JSON.stringify(emitEvent)))
+const addToCompletedList = (list: Item[], header: string) => {
+  console.log('my list', list)
+  finishedTodosMap.set(header, JSON.parse(JSON.stringify(list)))
   todos.value.splice(
     todos.value.findIndex((c) => c === header),
     1
@@ -60,9 +62,7 @@ const toggleCompleted = () => {
         class="box"
         todo="todo"
         :header-name="todo"
-        @completed-list="
-          (emitEvent: SubmitEvent, header: string) => addToCompletedList(emitEvent, header)
-        "
+        @completed-list="(list: Item[], header: string) => addToCompletedList(list, header)"
       />
     </ul>
   </main>

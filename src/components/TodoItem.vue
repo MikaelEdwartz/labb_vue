@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Item } from './TodoBox.vue'
+import type { Item } from '@/types'
 
 defineProps({
   listItem: {

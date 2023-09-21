@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import TodoItem from './TodoItem.vue'
 import TodoItemModal from './TodoItemModal.vue'
+import { Item, Priority } from '@/types'
 
 const props = defineProps({
   headerName: {
@@ -9,41 +10,30 @@ const props = defineProps({
   }
 })
 
-enum Priority {
-  HIGH,
-  MEDIUM,
-  LOW
-}
-
-export interface Item {
-  id: number
-  title: string
-  created: number
-  priority: Priority
-  completed: boolean
-}
-
 let todoHeader = ref(props.headerName)
 let showModal = ref(false)
 let isChecked = ref(false)
 let allChecked = ref(false)
+const generateId = () => {
+  return Math.floor(Math.random() * 100000000000)
+}
 const testItems = [
   {
-    id: 1,
+    id: generateId(),
     title: 'Groceries',
     priority: Priority.HIGH,
     created: new Date().getTime(),
     completed: false
   },
   {
-    id: 2,
+    id: generateId(),
     title: 'Workout',
     priority: Priority.MEDIUM,
     created: new Date().getTime(),
     completed: false
   },
   {
-    id: 3,
+    id: generateId(),
     title: 'Schleep',
     priority: Priority.LOW,
     created: new Date().getTime(),
@@ -80,6 +70,7 @@ const toggleAllCompleted = () => {
     ? todoList.value.forEach((todo) => (todo.completed = false))
     : todoList.value.forEach((todo) => (todo.completed = true))
   checkIfChecked()
+  todoList.value.forEach((todo) => console.log(todo))
 }
 </script>
 <template>

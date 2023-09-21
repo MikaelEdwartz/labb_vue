@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import type { Item } from '@/components/TodoBox.vue'
-
-enum Priority {
-  HIGH,
-  MEDIUM,
-  LOW
-}
+import type { Item } from '@/types'
+import { Priority } from '@/types'
 
 const props = defineProps({
   finishedItems: {
@@ -27,7 +22,7 @@ const props = defineProps({
         </p>
         <p>
           Priority: <br />
-          {{ Priority[v.priority].toLowerCase() }}
+          {{ Priority[v.priority] }}
         </p>
         <p>
           Created: <br />

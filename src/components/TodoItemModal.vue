@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type {Item} from './TodoBox.vue'
-import Priority from './TodoBox.vue'
-import {ref} from 'vue'
+import { ref } from 'vue'
+import type { Item } from '../types'
+import { Priority } from '../types'
 
 const emit = defineEmits(['addItem'])
 
@@ -10,6 +10,7 @@ const generateId = () => {
   return Math.floor(Math.random() * 100000000000)
 }
 const submitForm = (event: SubmitEvent) => {
+  console.log(priority.value)
   const newItem: Item = {
     id: generateId(),
     completed: false,
@@ -30,16 +31,37 @@ const submitForm = (event: SubmitEvent) => {
       <div class="modalContainer">
         <form class="form" @submit.prevent="submitForm">
           <p>What do you want to add?</p>
-          <input type="text" placeholder="Title" required/>
+          <input type="text" placeholder="Title" required />
           <div class="radioButtonDiv">
-            <input class="radioButton" type="radio" id="low" value="Low" v-model="priority"/>
+            <input
+              class="radioButton"
+              type="radio"
+              name="prio"
+              id="low"
+              :value="Priority.LOW"
+              v-model="priority"
+            />
             <label class="radioLabel" for="low">Low</label>
-            <input class="radioButton" type="radio" id="medium" value="Medium" v-model="priority"/>
+            <input
+              class="radioButton"
+              type="radio"
+              name="prio"
+              id="medium"
+              :value="Priority.MEDIUM"
+              v-model="priority"
+            />
             <label class="radioLabel" for="medium">Medium</label>
-            <input class="radioButton" type="radio" id="high" value="High" v-model="priority"/>
+            <input
+              class="radioButton"
+              type="radio"
+              name="prio"
+              id="high"
+              :value="Priority.HIGH"
+              v-model="priority"
+            />
             <label class="radioLabel" for="high">High</label>
           </div>
-          <input class="submitButton" type="submit"/>
+          <input class="submitButton" type="submit" />
         </form>
       </div>
     </main>
