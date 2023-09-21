@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import type { Item } from '@/components/TodoBox.vue'
+import type { Item } from './TodoBox.vue'
 
-enum Priority {
-  HIGH,
-  MEDIUM,
-  LOW
-}
 defineProps({
   listItem: {
     type: Object as () => Item,
@@ -13,30 +8,27 @@ defineProps({
   }
 })
 
-
-const testItem = { id: 1, title: 'Buy groceries', description: 'test', priority: Priority.MEDIUM }
 </script>
-
 <template>
   <div class="item">
     <p id="checkedText" v-if="listItem.completed">• {{ listItem.title }}</p>
     <p id="nonCheckedText" v-else>• {{ listItem.title }}</p>
-
-    <div class="checkBoxDiv" @click="$emit('checkBoxToggled', )">
+    <div class="checkBoxDiv" @click="$emit('checkBoxToggled' )">
       <input v-if="listItem.completed" type="checkbox" id="checkbox" checked @click="listItem.completed = !listItem.completed" />
       <input v-else type="checkbox" id="checkbox"  @click="listItem.completed = !listItem.completed" />
     </div>
     <label for="checkbox"></label>
   </div>
 </template>
-
 <style scoped>
+
 p{
   color: black;
 }
 .item {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding: 5px;
 }
 .checkBoxDiv {
   display: grid;
@@ -52,7 +44,6 @@ p{
 }
 #checkedText{
   font-size: 18px;
-
   color: rgb(128, 128, 128);
   text-decoration: line-through;
 }
