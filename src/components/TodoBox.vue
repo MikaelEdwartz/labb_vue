@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import { ref } from 'vue'
 import TodoItem from './TodoItem.vue'
 import TodoItemModal from './TodoItemModal.vue'
 
@@ -8,6 +8,7 @@ const props = defineProps({
     type: String
   }
 })
+
 enum Priority {
   HIGH,
   MEDIUM,
@@ -22,29 +23,34 @@ export interface Item {
   completed: boolean
 }
 
-let todoHeader = ref(props.headerName);
+let todoHeader = ref(props.headerName)
 let showModal = ref(false)
-let isChecked = ref(false);
-let allChecked = ref(false);
-const testItems = [{
-  id: 1,
-  title: 'Groceries',
-  priority: Priority.HIGH,
-  created: new Date().getTime(),
-  completed: false
-}, {
-  id: 2,
-  title: 'Workout',
-  priority: Priority.MEDIUM,
-  created: new Date().getTime(),
-  completed: false
-}, {
-  id: 3,
-  title: 'Schleep',
-  priority: Priority.LOW,
-  created: new Date().getTime(),
-  completed: false
-}]
+let isChecked = ref(false)
+let allChecked = ref(false)
+let toggleCompletedString = ref('Complete All')
+const testItems = [
+  {
+    id: 1,
+    title: 'Groceries',
+    priority: Priority.HIGH,
+    created: new Date().getTime(),
+    completed: false
+  },
+  {
+    id: 2,
+    title: 'Workout',
+    priority: Priority.MEDIUM,
+    created: new Date().getTime(),
+    completed: false
+  },
+  {
+    id: 3,
+    title: 'Schleep',
+    priority: Priority.LOW,
+    created: new Date().getTime(),
+    completed: false
+  }
+]
 const todoList = ref(testItems)
 
 const handleSubmit = (newItem: Item) => {
@@ -59,36 +65,52 @@ const handleSubmit = (newItem: Item) => {
   showModal.value = false
 }
 const removeCompleted = () => {
-  todoList.value = [...todoList.value.filter((todo) => !todo.completed)];
+  todoList.value = [...todoList.value.filter((todo) => !todo.completed)]
   checkIfChecked()
 }
 
 const checkIfChecked = () => {
   const completedList = todoList.value.filter((value) => value.completed)
-  completedList.length === todoList.value.length ? allChecked.value = true : allChecked.value = false;
-  completedList.length > 0 ? isChecked.value = true : isChecked.value = false;
+  completedList.length === todoList.value.length
+    ? (allChecked.value = true)
+    : (allChecked.value = false)
+  completedList.length > 0 ? (isChecked.value = true) : (isChecked.value = false)
 }
-
+const toggleAllCompleted = () => {
+  allChecked.value ?
+  todoList.value.forEach((todo) => (todo.completed = false)) :
+      todoList.value.forEach((todo) => (todo.completed = true))
+  checkIfChecked()
+  allChecked.value ? toggleCompletedString.value = 'Uncomplete All' : toggleCompletedString.value = 'Complete All'
+}
 </script>
 <template>
   <main class="todoBox">
     <TodoItemModal v-if="showModal" @add-item="(item) => handleSubmit(item)"></TodoItemModal>
-    <h1 class="header"><textarea id="headerInput" v-model="todoHeader"/></h1>
+    <h1 class="header"><textarea id="headerInput" v-model="todoHeader" /></h1>
     <div v-for="item in todoList" :key="item.id">
       <TodoItem :list-item="item" @check-Box-Toggled="checkIfChecked"></TodoItem>
     </div>
-    <footer class="boxFooter">'
-      <button id="removeBox" v-show="allChecked" @click="$emit('completedList', todoList, todoHeader)">Finish
+    <footer class="boxFooter">
+      <button
+        id="removeBox"
+        v-show="allChecked"
+        @click="$emit('completedList', todoList, todoHeader)"
+      >
+        Finish
         {{ todoHeader }}
       </button>
-      <button id="clearButton" v-show="isChecked && !allChecked" @click="removeCompleted">Clear completed</button>
+      <button id="clearButton" v-show="isChecked && !allChecked" @click="removeCompleted">
+        Clear completed
+      </button>
+      <button id="completeButton" @click="toggleAllCompleted">{{toggleCompletedString}}</button>
+
       <button id="addButton" @click="showModal = true">Add new</button>
     </footer>
   </main>
 </template>
 
 <style scoped>
-
 .header {
   display: grid;
   justify-items: center;
@@ -97,27 +119,33 @@ const checkIfChecked = () => {
 
 .todoBox {
   height: auto;
-  background-color: #C6C5BB;
+  background-color: #c6c5bb;
   border-radius: 10px;
 }
 
 .boxFooter {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-items: end;
   align-self: baseline;
 }
-
+#completeButton{
+  width: 80px;
+  height: 35px;
+  align-self: center;
+  grid-column: 2;
+  border-radius: 6px;
+}
 #addButton {
   width: 80px;
   height: 35px;
   align-self: end;
-  grid-column: 2;
+  grid-column: 3;
   border-radius: 6px;
-
 }
 
-#clearButton, #removeBox {
+#clearButton,
+#removeBox {
   place-self: start;
   grid-column: 1;
   border-radius: 6px;
@@ -131,10 +159,13 @@ const checkIfChecked = () => {
   height: 25px;
   text-align: center;
   overflow-x: scroll;
-  background-color: #C6C5BB;
+  background-color: #c6c5bb;
   resize: none;
 }
-  #addButton:hover, #clearButton:hover, #removeBox:hover {
-    background-color: #C6C5BB;
+
+#addButton:hover,
+#clearButton:hover,
+#removeBox:hover {
+  background-color: #c6c5bb;
 }
 </style>

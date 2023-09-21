@@ -1,38 +1,40 @@
 <script setup lang="ts">
 import TodoBox, {Item} from '/src/components/TodoBox.vue'
 import {ref} from 'vue'
-import CompletedList from "@/components/CompletedList.vue";
+import CompletedList from '@/components/CompletedList.vue'
 
 defineProps({
   completedList: {
     type: Object as () => Item[]
-
   }
 })
-const todos = ref(['Todo 1', 'Todo 2', 'Todo 3', "Todo 4"])
-const finishedTodosMap = new Map<String, Item[]>();
-const inputValue = ref("");
-const showCompleted = ref(false);
-const showFinishedButton = ref("Show Completed")
+const todos = ref(['Todo 1', 'Todo 2', 'Todo 3', 'Todo 4', 'Todo 5', 'Todo 6', 'Todo 7', 'Todo 8'])
+const finishedTodosMap = new Map<String, Item[]>()
+const inputValue = ref('')
+const showCompleted = ref(false)
+const showFinishedButton = ref('Show Completed')
 const createNewTodo = (event: SubmitEvent) => {
-  const input = event.target[0];
-  if (input)
-    todos.value.push(input.value)
-  inputValue.value = "";
+  const input = event.target[0]
+  if (input) todos.value.push(input.value)
+  inputValue.value = ''
 }
 const addToCompletedList = (emitEvent: SubmitEvent, header: string) => {
   finishedTodosMap.set(header, JSON.parse(JSON.stringify(emitEvent)))
-  todos.value.splice(todos.value.findIndex((c) => c === header), 1)
+  todos.value.splice(
+      todos.value.findIndex((c) => c === header),
+      1
+  )
 }
 const toggleCompleted = () => {
-  showCompleted.value = !showCompleted.value;
-  showCompleted.value ? showFinishedButton.value = "Show Todo" : showFinishedButton.value = "Show Completed"
-  console.log(finishedTodosMap.get("Todo 1"))
+  showCompleted.value = !showCompleted.value
+  showCompleted.value
+      ? (showFinishedButton.value = 'Show Todo')
+      : (showFinishedButton.value = 'Show Completed')
+  console.log(finishedTodosMap.get('Todo 1'))
 }
 </script>
 
 <template>
-
   <header>
     <h1 class="toDoHeader">TODO</h1>
     <form id="addForm" @submit.prevent="createNewTodo">
@@ -42,16 +44,27 @@ const toggleCompleted = () => {
       </div>
     </form>
     <div id="showCompleted">
-      <button id="toggleCompletedButton" @click="toggleCompleted"> {{ showFinishedButton }}</button>
+      <button id="toggleCompletedButton" @click="toggleCompleted">{{ showFinishedButton }}</button>
     </div>
   </header>
   <main class="main">
-    <ul v-if="showCompleted" class="list" v-for="finished in finishedTodosMap" :key="JSON.stringify(finished)">
+    <ul
+        v-if="showCompleted"
+        class="list"
+        v-for="finished in finishedTodosMap"
+        :key="JSON.stringify(finished)"
+    >
       <CompletedList v-if="showCompleted" :finished-items="[finished]"></CompletedList>
     </ul>
     <ul v-else class="list" v-for="todo in todos" :key="todo">
-      <TodoBox class="box" todo="todo" :header-name="todo"
-               @completed-list="(emitEvent: SubmitEvent, header: string) => addToCompletedList(emitEvent, header)"/>
+      <TodoBox
+          class="box"
+          todo="todo"
+          :header-name="todo"
+          @completed-list="
+          (emitEvent: SubmitEvent, header: string) => addToCompletedList(emitEvent, header)
+        "
+      />
     </ul>
   </main>
 </template>
@@ -87,7 +100,6 @@ const toggleCompleted = () => {
   display: grid;
   justify-items: center;
   padding: 5px;
-
 }
 
 #showCompleted {
@@ -104,7 +116,7 @@ const toggleCompleted = () => {
 }
 
 #toggleCompletedButton:hover {
-  background-color: #C6C5BB;
+  background-color: #c6c5bb;
 }
 
 .createTodoText {
@@ -130,5 +142,4 @@ const toggleCompleted = () => {
     justify-items: center;
   }
 }
-
 </style>

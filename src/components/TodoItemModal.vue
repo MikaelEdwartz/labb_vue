@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type {Item} from './TodoBox.vue'
+import type { Item } from './TodoBox.vue'
 import Priority from './TodoBox.vue'
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 const emit = defineEmits(['addItem'])
 
 const priority = ref(Priority.LOW)
 const generateId = () => {
-  return Math.floor(Math.random() * 100000000000);
+  return Math.floor(Math.random() * 100000000000)
 }
 const submitForm = (event: SubmitEvent) => {
   const newItem: Item = {
@@ -15,7 +15,7 @@ const submitForm = (event: SubmitEvent) => {
     completed: false,
     created: new Date().getTime(),
     priority: priority.value,
-    title: '',
+    title: ''
   }
   if (event.target[0] && event.target[1]) {
     const title = event.target[0].value
@@ -30,16 +30,16 @@ const submitForm = (event: SubmitEvent) => {
       <div class="modalContainer">
         <form class="form" @submit.prevent="submitForm">
           <p>What do you want to add?</p>
-          <input type="text" placeholder="Title" required/>
+          <input type="text" placeholder="Title" required />
           <div>
-            <input type="radio" id="low" value="Low" v-model="priority"/>
+            <input type="radio" id="low" value="Low" v-model="priority" />
             <label for="low">Low</label>
-            <input type="radio" id="medium" value="Medium" v-model="priority"/>
+            <input type="radio" id="medium" value="Medium" v-model="priority" />
             <label for="medium">Medium</label>
-            <input type="radio" id="high" value="High" v-model="priority"/>
+            <input type="radio" id="high" value="High" v-model="priority" />
             <label for="high">High</label>
           </div>
-          <input type="submit"/>
+          <input type="submit" />
         </form>
       </div>
     </main>
@@ -57,12 +57,11 @@ const submitForm = (event: SubmitEvent) => {
   display: grid;
   align-items: center;
   justify-items: center;
-
 }
 
 .modalContainer {
   width: 300px;
-  background-color: #C6C5BB;
+  background-color: #c6c5bb;
   border-radius: 10px;
   margin-left: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -74,8 +73,7 @@ const submitForm = (event: SubmitEvent) => {
   grid-template-rows: 1fr 1fr;
   grid-gap: 10px;
   padding: 10px;
-  background-color: #C6C5BB;
+  background-color: #c6c5bb;
   border-radius: 10px;
-
 }
 </style>

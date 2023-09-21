@@ -1,6 +1,5 @@
 <script setup lang="ts">
-
-import type {Item} from '@/components/TodoBox.vue'
+import type { Item } from '@/components/TodoBox.vue'
 
 enum Priority {
   HIGH,
@@ -13,7 +12,6 @@ const props = defineProps({
     type: Map<string, Item[]>
   }
 })
-
 </script>
 
 <template>
@@ -23,17 +21,24 @@ const props = defineProps({
         <h1 class="header">{{ key }}</h1>
       </div>
       <div class="finishedItem" v-for="v in value" :key="v.id">
-        <p> Done: <br> {{ v.title }}</p>
-        <p> Priority: <br> {{ Priority[v.priority].toLowerCase() }}</p>
-        <p> Created: <br> {{ new Date(v.created).toDateString() }}</p>
+        <p>
+          Done: <br />
+          {{ v.title }}
+        </p>
+        <p>
+          Priority: <br />
+          {{ Priority[v.priority].toLowerCase() }}
+        </p>
+        <p>
+          Created: <br />
+          {{ new Date(v.created).toDateString() }}
+        </p>
       </div>
     </div>
-
   </main>
 </template>
 
 <style scoped>
-
 .header {
   display: grid;
   justify-items: center;
@@ -43,7 +48,7 @@ const props = defineProps({
 .finishedBox {
   height: auto;
   width: 100%;
-  background-color: #C6C5BB;
+  background-color: #c6c5bb;
   border-radius: 10px;
   align-items: center;
 }
