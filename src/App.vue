@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TodoBox, {Item} from '/src/components/TodoBox.vue'
-import {ref} from 'vue'
+import TodoBox, { Item } from '/src/components/TodoBox.vue'
+import { ref } from 'vue'
 import CompletedList from '@/components/CompletedList.vue'
 
 defineProps({
@@ -21,16 +21,15 @@ const createNewTodo = (event: SubmitEvent) => {
 const addToCompletedList = (emitEvent: SubmitEvent, header: string) => {
   finishedTodosMap.set(header, JSON.parse(JSON.stringify(emitEvent)))
   todos.value.splice(
-      todos.value.findIndex((c) => c === header),
-      1
+    todos.value.findIndex((c) => c === header),
+    1
   )
 }
 const toggleCompleted = () => {
   showCompleted.value = !showCompleted.value
   showCompleted.value
-      ? (showFinishedButton.value = 'Show Todo')
-      : (showFinishedButton.value = 'Show Completed')
-  console.log(finishedTodosMap.get('Todo 1'))
+    ? (showFinishedButton.value = 'Show Todo')
+    : (showFinishedButton.value = 'Show Completed')
 }
 </script>
 
@@ -39,8 +38,8 @@ const toggleCompleted = () => {
     <h1 class="toDoHeader">TODO</h1>
     <form id="addForm" @submit.prevent="createNewTodo">
       <div>
-        <input class="createTodoText" v-model="inputValue" placeholder="New Todo" required/>
-        <input class="createTodoButton" type="submit" value="Add"/>
+        <input class="createTodoText" v-model="inputValue" placeholder="New Todo" required />
+        <input class="createTodoButton" type="submit" value="Add" />
       </div>
     </form>
     <div id="showCompleted">
@@ -49,19 +48,19 @@ const toggleCompleted = () => {
   </header>
   <main class="main">
     <ul
-        v-if="showCompleted"
-        class="list"
-        v-for="finished in finishedTodosMap"
-        :key="JSON.stringify(finished)"
+      v-if="showCompleted"
+      class="list"
+      v-for="finished in finishedTodosMap"
+      :key="JSON.stringify(finished)"
     >
       <CompletedList v-if="showCompleted" :finished-items="[finished]"></CompletedList>
     </ul>
     <ul v-else class="list" v-for="todo in todos" :key="todo">
       <TodoBox
-          class="box"
-          todo="todo"
-          :header-name="todo"
-          @completed-list="
+        class="box"
+        todo="todo"
+        :header-name="todo"
+        @completed-list="
           (emitEvent: SubmitEvent, header: string) => addToCompletedList(emitEvent, header)
         "
       />
@@ -72,7 +71,7 @@ const toggleCompleted = () => {
 <style scoped>
 .main {
   display: grid;
-  justify-items: baseline;
+  justify-items: center;
   background-color: #383835;
 }
 
@@ -80,6 +79,8 @@ const toggleCompleted = () => {
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
+  padding: 10px;
+  margin: 10px;
 }
 
 .toDoHeader {
@@ -94,6 +95,7 @@ const toggleCompleted = () => {
   min-height: 200px;
   height: auto;
   border: 1px solid black;
+  padding: 10px;
 }
 
 #addForm {

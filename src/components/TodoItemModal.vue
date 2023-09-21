@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Item } from './TodoBox.vue'
+import type {Item} from './TodoBox.vue'
 import Priority from './TodoBox.vue'
-import { ref } from 'vue'
+import {ref} from 'vue'
 
 const emit = defineEmits(['addItem'])
 
@@ -30,16 +30,16 @@ const submitForm = (event: SubmitEvent) => {
       <div class="modalContainer">
         <form class="form" @submit.prevent="submitForm">
           <p>What do you want to add?</p>
-          <input type="text" placeholder="Title" required />
-          <div>
-            <input type="radio" id="low" value="Low" v-model="priority" />
-            <label for="low">Low</label>
-            <input type="radio" id="medium" value="Medium" v-model="priority" />
-            <label for="medium">Medium</label>
-            <input type="radio" id="high" value="High" v-model="priority" />
-            <label for="high">High</label>
+          <input type="text" placeholder="Title" required/>
+          <div class="radioButtonDiv">
+            <input class="radioButton" type="radio" id="low" value="Low" v-model="priority"/>
+            <label class="radioLabel" for="low">Low</label>
+            <input class="radioButton" type="radio" id="medium" value="Medium" v-model="priority"/>
+            <label class="radioLabel" for="medium">Medium</label>
+            <input class="radioButton" type="radio" id="high" value="High" v-model="priority"/>
+            <label class="radioLabel" for="high">High</label>
           </div>
-          <input type="submit" />
+          <input class="submitButton" type="submit"/>
         </form>
       </div>
     </main>
@@ -74,6 +74,31 @@ const submitForm = (event: SubmitEvent) => {
   grid-gap: 10px;
   padding: 10px;
   background-color: #c6c5bb;
+  border-radius: 10px;
+}
+
+.radioButtonDiv {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 10px;
+}
+
+.radioButton {
+  height: 2em;
+  width: 50%;
+  justify-self: start;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+}
+
+.submitButton {
+  display: grid;
+  height: 3em;
+  width: 50%;
+  justify-self: center;
   border-radius: 10px;
 }
 </style>
